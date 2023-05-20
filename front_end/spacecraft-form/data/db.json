@@ -1,0 +1,19 @@
+{
+  "spacecrafts": [
+    {
+      "id": 1,
+      "name": "Serenity",
+      "fictional_source": "Firefly"
+    },
+    {
+      "id": 2,
+      "name": "Spaceball One",
+      "fictional_source": "Spaceballs"
+    },
+    {
+      "name": "millenium falcon",
+      "fictional_source": "star wars",
+      "id": 3
+    }
+  ]
+}
