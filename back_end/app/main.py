@@ -7,11 +7,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from routers.spacecrafts import router as spacecrafts_router
+from .routers.spacecrafts import router as spacecrafts_router
 
 
 DB_URL = config("DB_URL", cast=str)
 DB_NAME = config("DB_NAME", cast=str)
+
+print(DB_NAME)
 
 
 # define origins
@@ -44,4 +46,4 @@ async def shutdown_db_client():
 app.include_router(spacecrafts_router, prefix="/spacecrafts", tags=["spacecrafts"])
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", reload=True, port=8000)

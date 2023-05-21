@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, Body, status, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
-from models import SpaceCraft
+from ..models import SpaceCraft
 
 router = APIRouter()
 

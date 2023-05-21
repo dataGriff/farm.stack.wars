@@ -4,4 +4,4 @@ uvicorn
 typing
 python-decouple
 motor
-bson
+pymongo
