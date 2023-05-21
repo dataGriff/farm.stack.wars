@@ -11,7 +11,6 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
   offer_type                = "Standard"
   kind                      = "MongoDB"
   enable_automatic_failover = false
-  enable_free_tier          = true
   tags                      = local.tags
   mongo_server_version      = "3.6"
 
