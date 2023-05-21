@@ -41,3 +41,9 @@ resource "azurerm_key_vault" "kv" {
   sku_name                    = "standard"
   tags                        = local.tags
 }
+
+resource "azurerm_key_vault_secret" "cosmos" {
+  name         = "cosmos-connection-string"
+  value        = azurerm_cosmosdb_account.cosdbmon.connection_strings[0]
+  key_vault_id = azurerm_key_vault.kv.id
+}
