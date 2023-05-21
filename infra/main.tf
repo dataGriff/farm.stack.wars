@@ -16,6 +16,10 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
   mongo_server_version      = "3.6"
 
   capabilities {
+    name = "EnableMongo"
+  }
+
+  capabilities {
     name = "EnableServerless"
   }
 
