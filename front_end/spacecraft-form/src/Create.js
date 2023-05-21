@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import {useBackendUrl} from "./backendURLContext";
 
 const Create = () => {
+
+    const backendUrl = useBackendUrl();
     //state
     const [name, setName] = useState('');
     const [fictional_source, setFictionalSource] = useState('');
@@ -13,7 +16,7 @@ const Create = () => {
         const spacecraft = {name, fictional_source};
         setIsPending(true);
         
-        fetch('http://localhost:5000/spacecrafts', {
+        fetch(backendUrl, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(spacecraft)

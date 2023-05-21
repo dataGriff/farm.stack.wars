@@ -1,9 +1,12 @@
 import SpacecraftList from "./SpacecraftList";
 import useFetch from "./useFetch";
+import {useBackendUrl} from "./backendURLContext";
 
 const Home = () => {
 
-    const {data: spacecrafts, isPending, error} = useFetch('http://localhost:5000/spacecrafts')
+    const backendUrl = useBackendUrl();
+
+    const {data: spacecrafts, isPending, error} = useFetch(backendUrl)
 
     return (
         <div className="home">

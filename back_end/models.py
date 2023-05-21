@@ -6,7 +6,7 @@ class SpaceCraft(BaseModel):
     Args:
         BaseModel (BaseModel): This is a pydantic base model
     """
-    id: int = Field(example=1, description="This is the id of the spacecraft")
+    id: int = Field(example=1, description="This is the id of the spacecraft",default=1)
     name: str = Field(example="Serenity"
                       ,description="This is the name of the spacecraft")
     fictional_source: str = Field(example="Firefly"
