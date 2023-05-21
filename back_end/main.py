@@ -1,13 +1,26 @@
-from models import SpaceCraft
-from fastapi import FastAPI, status, Response, Body
+from decouple import config
+
+import uvicorn
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from motor.motor_asyncio import AsyncIOMotorClient
+
+from routers.spacecrafts import router as spacecrafts_router
+
+
+DB_URL = config("DB_URL", cast=str)
+DB_NAME = config("DB_NAME", cast=str)
+
+
+# define origins
+origins = ["*"]
+
+# instantiate the app
 app = FastAPI()
 
-origins = [
-    "*"
-]
-
+# add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -16,67 +29,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-spacecrafts = []
 
-@app.get("/")
-async def root():
-    """Welcomes you to the hungover coders spacecraft API
-
-    Returns:
-        string: Welcome message
-    """
-    return "Welcome to the hungovercoders spacecraft API!"
-
-@app.post("/spacecrafts")
-async def create_spaceraft(response: Response, spacecraft: SpaceCraft= Body()):
-    response.status_code=status.HTTP_204_NO_CONTENT
-    if spacecrafts.append(spacecraft) is True:
-        content = f'Spacecraft "{spacecraft.name}" Added.'
-        response.status_code=status.HTTP_201_CREATED
-        return content
-
-@app.get("/spacecrafts")
-async def get_spacecrafts(response: Response, name: str | None = None
-                          , fictional_source: str | None = None):
-    """Returns example spacecraft
-
-    Returns:
-        SpaceCraft: Returns spacecrafts
-    """
-    
-    if (name is None) & (fictional_source is None):
-        response.status_code=status.HTTP_200_OK
-        return spacecrafts
-    
-    found_spacecrafts = []
-    for spacecraft in spacecrafts:
-        if name is not None:
-            if  spacecraft.name.lower() == name.lower():
-                response.status_code=status.HTTP_200_OK
-                return spacecraft
-        if fictional_source is not None:
-            if spacecraft.fictional_source.lower() == fictional_source.lower():
-                found_spacecrafts.append(spacecraft)
-
-    if len(found_spacecrafts) > 0:
-        response.status_code=status.HTTP_200_OK
-        return found_spacecrafts
+@app.on_event("startup")
+async def startup_db_client():
+    app.mongodb_client = AsyncIOMotorClient(DB_URL)
+    app.mongodb = app.mongodb_client[DB_NAME]
 
 
+@app.on_event("shutdown")
+async def shutdown_db_client():
+    app.mongodb_client.close()
 
-@app.get("/spacecrafts/{id}/")
-async def get_spacecraft(response: Response, id: int):
-    for spacecraft in spacecrafts:
-        if spacecraft.id == id:
-            response.status_code=status.HTTP_200_OK
-            return spacecraft
 
-@app.delete("/spacecrafts/{id}/")
-async def delete_spacecraft(response: Response, id: int):
-    response.status_code=status.HTTP_204_NO_CONTENT
-    for spacecraft in spacecrafts:
-        if spacecraft.id == id:
-            spacecrafts.remove(spacecraft)
-            content = f'Spacecraft "{spacecraft.name}" removed.'
-            response.status_code=status.HTTP_200_OK
-        return content
+app.include_router(spacecrafts_router, prefix="/spacecrafts", tags=["spacecrafts"])
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)

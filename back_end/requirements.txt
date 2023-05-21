@@ -2,3 +2,6 @@ fastapi
 pydantic
 uvicorn
 typing
+python-decouple
+motor
+bson
