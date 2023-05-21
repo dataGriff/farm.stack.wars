@@ -13,7 +13,7 @@ resource "azurerm_cosmosdb_account" "cosdbmon" {
   enable_automatic_failover = false
   enable_free_tier          = true
   tags                      = local.tags
-  version                   = "3.6"
+  mongo_server_version      = "3.6"
 
   capabilities {
     name = "EnableServerless"
