@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+docker tag spacecraftform lrndatagriffacreundgrf.azurecr.io/spacecraftform
+
+docker push lrndatagriffacreundgrf.azurecr.io/spacecraftform
+
+
 ## Available Scripts
 
 In the project directory, you can run:
