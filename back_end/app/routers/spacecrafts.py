@@ -9,7 +9,8 @@ router = APIRouter()
 collection = "spacecrafts"
 
 @router.get("/", response_description="List all spacecrafts")
-async def get_spacecrafts(request: Request, number_spacecrafts: int = 5):
+async def get_spacecrafts(request: Request, number_spacecrafts: int = 5
+                          , fictional_source: str | None = None):
     """Gets the spacecrafts from the database
 
     Args:
@@ -20,7 +21,10 @@ async def get_spacecrafts(request: Request, number_spacecrafts: int = 5):
         array: Array of spacecraft objects
     """
     spacecrafts = []
-    for spacecraft in await request.app.mongodb[collection].find().to_list(number_spacecrafts):
+    query = ""
+    if fictional_source is not None:
+        query =  { "fictional_source": fictional_source }
+    for spacecraft in await request.app.mongodb[collection].find(query).to_list(number_spacecrafts):
         spacecrafts.append(spacecraft)
     return JSONResponse(status_code=status.HTTP_200_OK, content=spacecrafts)
 
