@@ -8,16 +8,15 @@ import NotFound from './NotFound';
 function App() {
 
 
-  const url = 'http://localhost:5000/spacecrafts'
   return (
     <Router>
       <div className="App">
          <Navbar />
         <div className="content">
           <Routes>
-             <Route path='/' element={<Home url={url}/>} />
-              <Route path='/create' element={<Create url={url}/>} />
-              <Route path='/spacecraft/:id' element={<SpacecraftDetails />} />
+             <Route path='/' element={<Home />} />
+              <Route path='/create' element={<Create />} />
+              <Route path='/spacecrafts/:id' element={<SpacecraftDetails />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </div>

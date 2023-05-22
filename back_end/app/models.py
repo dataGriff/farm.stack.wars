@@ -29,6 +29,7 @@ class FictionalSource(str, Enum):
     SPACE1999 = "Space: 1999"
     THUNDERBIRDS = "Thunderbirds"
     EXPANSE = "Expanse"
+    SPACEBALLS = "Spaceballs"
     OTHER = "Other"
 
 class PyObjectId(ObjectId):

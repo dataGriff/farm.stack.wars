@@ -12,8 +12,8 @@ const SpacecraftList = ({ spacecrafts }) => {
   return (
     <div className="spacecraft-list">
       {spacecrafts.map(spacecraft => (
-        <div className="spacecraft-preview" key={spacecraft.id} >
-          <Link to={`/spacecraft/${spacecraft.id}`}>
+        <div className="spacecraft-preview" key={spacecraft._id} >
+          <Link to={`/spacecrafts/${spacecraft._id}`}>
             <h2>{spacecraft.name}</h2>
             <p>First seen in {spacecraft.fictional_source}</p>
           </Link>

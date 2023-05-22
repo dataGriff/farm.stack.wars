@@ -26,6 +26,7 @@ const useFetch = (url) => {
                     // auto catches network / connection error
                     if (err.name === 'AbortError') {
                         console.log('fetch aborted');
+                        console.log(err);
                     }
                     else {
                         setIsPending(false);

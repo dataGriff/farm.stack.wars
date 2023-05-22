@@ -1,6 +1,6 @@
 import {createContext, useContext} from "react";
 
-const defaultBackendUrlValue = "http://localhost:8000/spacecrafts";
+const defaultBackendUrlValue = process.env.REACT_APP_API
 
 const backendUrlContext = createContext(defaultBackendUrlValue);
 

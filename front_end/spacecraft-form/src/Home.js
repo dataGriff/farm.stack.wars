@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <div className="home">
             {error && <div>{error}</div>}
-            {isPending && <div>Creating...</div>}
+            {isPending && <div>Retrieving...</div>}
             {spacecrafts && <SpacecraftList spacecrafts={spacecrafts} />}
         </div>
     );

@@ -1,13 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import {useBackendUrl} from "./backendURLContext";
 
 const SpacecraftDetails = () => {
+    const backendUrl = useBackendUrl();
     const { id } = useParams();
-    const { data: spacecraft, error, isPending } = useFetch('http://localhost:5000/spacecrafts/' + id);
+    const { data: spacecraft, error, isPending } = useFetch(backendUrl + id);
     const navigate = useNavigate();
 
     const handleClick = () => {
-        fetch('http://localhost:5000/spacecrafts/' + spacecraft.id, {
+        fetch(backendUrl + spacecraft._id, {
             method: 'DELETE'
         }).then(() => {
             navigate('/');
@@ -16,7 +18,7 @@ const SpacecraftDetails = () => {
 
     return (
         <div className="spacecraft-details">
-            {isPending && <div>Creating...</div>}
+            {isPending && <div>Preparing...</div>}
             {error && <div>{error}</div>}
             {spacecraft && (
                 <article>
